@@ -65,3 +65,17 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+#supportButton {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#supportButton:hover {
+    background-color: #218838;
+}
