@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pomodoro Timer</h1>
+        <label for="workTime">Work Time (minutes):</label>
+        <input type="number" id="workTime" value="25">
+        
+        <label for="breakTime">Break Time (minutes):</label>
+        <input type="number" id="breakTime" value="5">
+        
+        <label for="repeats">Repeats:</label>
+        <input type="number" id="repeats" value="4">
+        
+        <button onclick="startTimer()">Start</button>
+        <button onclick="pauseTimer()">Pause</button>
+        <button onclick="stopTimer()">Stop</button>
+        
+        <div id="timerDisplay">00:00</div>
+        <div id="overallTimerDisplay">Overall Time: 00:00</div>
+        <div id="message"></div>
+        
+        <footer>
+            Brought to you by <a href="https://hamishjones.com.au" target="_blank">Hamish Jones</a>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
