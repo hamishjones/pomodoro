@@ -8,6 +8,9 @@ let currentRepeat = 0;
 let timeRemaining;
 let overallTime = 0;
 let isPaused = false;
+let pomodorosCompleted = 0;
+
+const bellSound = document.getElementById('bellSound');
 
 function startTimer() {
     workMinutes = parseInt(document.getElementById('workTime').value) * 60;
@@ -18,12 +21,14 @@ function startTimer() {
     timeRemaining = workMinutes;
     isPaused = false;
     overallTime = 0;
+    pomodorosCompleted = 0;
 
     document.body.classList.add('work');
     document.body.classList.remove('break');
     document.getElementById('message').innerText = "Work Time!";
     updateTimerDisplay();
     updateOverallTimerDisplay();
+    updatePomodorosCompleted();
     timer = setInterval(countDown, 1000);
     overallTimer = setInterval(trackOverallTime, 1000);
 }
@@ -41,6 +46,9 @@ function countDown() {
             document.body.classList.remove('work');
             document.body.classList.add('break');
             document.getElementById('message').innerText = "Break Time!";
+            pomodorosCompleted++;
+            updatePomodorosCompleted();
+            bellSound.play();
         } else {
             currentRepeat++;
             if (currentRepeat < repeats) {
@@ -49,10 +57,12 @@ function countDown() {
                 document.body.classList.remove('break');
                 document.body.classList.add('work');
                 document.getElementById('message').innerText = "Work Time!";
+                bellSound.play();
             } else {
                 clearInterval(timer);
                 clearInterval(overallTimer);
                 document.getElementById('message').innerText = "Pomodoro Complete!";
+                bellSound.play();
                 return;
             }
         }
@@ -78,6 +88,10 @@ function updateOverallTimerDisplay() {
     document.getElementById('overallTimerDisplay').innerText = `Overall Time: ${overallMinutes < 10 ? '0' : ''}${overallMinutes}:${overallSeconds < 10 ? '0' : ''}${overallSeconds}`;
 }
 
+function updatePomodorosCompleted() {
+    document.getElementById('pomodorosCompleted').innerText = `Pomodoros Completed: ${pomodorosCompleted}`;
+}
+
 function pauseTimer() {
     isPaused = !isPaused;
     document.getElementById('message').innerText = isPaused ? "Paused" : (isWorkTime ? "Work Time!" : "Break Time!");
@@ -88,6 +102,7 @@ function stopTimer() {
     clearInterval(overallTimer);
     document.getElementById('timerDisplay').innerText = "00:00";
     document.getElementById('overallTimerDisplay').innerText = "Overall Time: 00:00";
+    document.getElementById('pomodorosCompleted').innerText = "Pomodoros Completed: 0";
     document.getElementById('message').innerText = "Stopped";
     document.body.classList.remove('work', 'break');
 }
